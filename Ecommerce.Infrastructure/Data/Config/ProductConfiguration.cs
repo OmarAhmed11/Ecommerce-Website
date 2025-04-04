@@ -15,9 +15,9 @@ namespace Ecommerce.Infrastructure.Data.Config
         {
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Description).IsRequired();
-            builder.Property(x => x.Price).HasColumnType("decimal(18,2)");
+            builder.Property(x => x.NewPrice).HasColumnType("decimal(18,2)");
             builder.HasData(
-                new Product { Id = 1, Name = "Lenovo LOQ", Description = "Good Laptop", Price = 50000, CategoryId = 1 }
+                new Product { Id = 1, Name = "Lenovo LOQ", Description = "Good Laptop", NewPrice = 50000, CategoryId = 1 }
             );
         }
     }
