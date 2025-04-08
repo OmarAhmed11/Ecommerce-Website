@@ -14,6 +14,7 @@
                 200 => "Success",
                 400 => "Bad Request",
                 401 => "Un Authorized",
+                404 => "Resource Not Found",
                 500 => "Server Error",
                 _ => "UnKnown Error",
             };
