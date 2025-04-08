@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Ecommerce.Core.DTOs;
+using Ecommerce.Core.Entities.Product;
 using Ecommerce.Core.Interfaces;
+using Ecommerce.Core.Shared;
 using Ecommerce.Helper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,17 +17,13 @@ namespace Ecommerce.Controllers
         {
         }
         [HttpGet("GetAll")]
-        public async Task<IActionResult> get()
+        public async Task<IActionResult> get([FromQuery] ProductParams productParams)
         {
             try
             {
-                var products = await unitOfWork.ProductRepository.GetAllAsync(x => x.Category, x => x.Images);
-                var result = mapper.Map<List<ProductDTO>>(products);
-                if (products == null)
-                {
-                    return BadRequest(new ResponseAPI(400));
-                }
-                return Ok(result);
+                var products = await unitOfWork.ProductRepository.GetAllAsync(productParams);
+                var totalCount = await unitOfWork.ProductRepository.CountAsync();
+                return Ok(new Pagination<ProductDTO>(productParams.PageNumber, productParams.pageSize, totalCount, products));
             }
             catch (Exception ex)
             {

@@ -1,11 +1,19 @@
 using Ecommerce.Infrastructure;
 using Ecommerce.Middleware;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(op =>
+{
+    op.AddPolicy("CORSPolicy", builder =>
+    {
+        builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().AllowAnyOrigin();
+    });
+});
 builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -22,6 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("CORSPolicy");
 app.UseMiddleware<ExceptionsMiddleware>();
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseHttpsRedirection();
