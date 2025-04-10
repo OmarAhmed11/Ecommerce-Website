@@ -11,7 +11,7 @@ builder.Services.AddCors(op =>
 {
     op.AddPolicy("CORSPolicy", builder =>
     {
-        builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().AllowAnyOrigin();
+        builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
 });
 builder.Services.AddMemoryCache();
