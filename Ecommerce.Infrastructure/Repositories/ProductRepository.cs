@@ -63,7 +63,7 @@ namespace Ecommerce.Infrastructure.Repositories
                 };
             }
             productParams.PageNumber = productParams.PageNumber > 0 ? productParams.PageNumber : 1;
-            productParams.pageSize = productParams.pageSize > 0 ? productParams.pageSize : 3;
+            productParams.pageSize = productParams.pageSize > 0 ? productParams.pageSize : 6;
             query = query.Skip((productParams.pageSize) * (productParams.PageNumber - 1)).Take(productParams.pageSize);
             var result = mapper.Map<List<ProductDTO>>(query);
             return result;

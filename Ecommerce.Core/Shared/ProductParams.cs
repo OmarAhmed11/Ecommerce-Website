@@ -12,7 +12,7 @@ namespace Ecommerce.Core.Shared
        public int? CategoryId { get; set; }
        public string Search { get; set; }
        public int MaxPageSize { get; set; } = 6;
-       private int _pageSize = 3;
+       private int _pageSize = 6;
 
        public int pageSize
        {
