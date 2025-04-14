@@ -1,5 +1,4 @@
-﻿using Ecommerce.Core.Entities.Product;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,6 +10,7 @@ namespace Ecommerce.Core.DTOs
 {
     public record ProductDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal NewPrice { get; set; }
@@ -18,6 +18,11 @@ namespace Ecommerce.Core.DTOs
         public virtual List<ImageDTO> Images { get; set; }
         public string CategoryName { get; set; }
 
+    }
+    public record ReturnProductDTO
+    {
+        public List<ProductDTO> Products { get; set; }
+        public int TotalCount { get; set; }
     }
     public record ImageDTO {
         public string ImageName { get; set; }

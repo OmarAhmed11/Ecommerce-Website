@@ -26,7 +26,7 @@ namespace Ecommerce.Infrastructure.Repositories
             this.imageManagementService = imageManagementService;
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetAllAsync(ProductParams productParams)
+        public async Task<ReturnProductDTO> GetAllAsync(ProductParams productParams)
         {
             var query = context.Products.Include(p => p.Category).Include(p => p.Images).AsNoTracking();
 
@@ -57,16 +57,20 @@ namespace Ecommerce.Infrastructure.Repositories
             {
                 query = productParams.Sort switch
                 {
-                    "PriceAce" => query.OrderBy(p => p.NewPrice),
-                    "PriceDce" => query.OrderByDescending(p => p.NewPrice),
-                    _ => query.OrderByDescending(p => p.Name),
+                    "PriceAsc" => query.OrderBy(p => p.NewPrice),
+                    "PriceDsc" => query.OrderByDescending(p => p.NewPrice),
+                    _ => query.OrderBy(p => p.Name),
                 };
             }
+
+            ReturnProductDTO returnProductDTO = new ReturnProductDTO();
+            returnProductDTO.TotalCount = query.Count(); 
+
             productParams.PageNumber = productParams.PageNumber > 0 ? productParams.PageNumber : 1;
-            productParams.pageSize = productParams.pageSize > 0 ? productParams.pageSize : 6;
-            query = query.Skip((productParams.pageSize) * (productParams.PageNumber - 1)).Take(productParams.pageSize);
-            var result = mapper.Map<List<ProductDTO>>(query);
-            return result;
+            productParams.PageSize = productParams.PageSize > 0 ? productParams.PageSize : 6;
+            query = query.Skip((productParams.PageSize) * (productParams.PageNumber - 1)).Take(productParams.PageSize);
+            returnProductDTO.Products = mapper.Map<List<ProductDTO>>(query);
+            return returnProductDTO;
         }
 
         public async Task<bool> AddAsync(AddProductDTO productDTO)

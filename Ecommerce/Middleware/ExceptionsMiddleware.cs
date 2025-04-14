@@ -59,7 +59,7 @@ namespace Ecommerce.Middleware
 
             if(dateNow - timeStamp < _rateLimitwindow)
             {
-                if(count > 8)
+                if(count > 50)
                 {
                     return false;
                 }

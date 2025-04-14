@@ -14,7 +14,7 @@ namespace Ecommerce.Core.Shared
        public int MaxPageSize { get; set; } = 6;
        private int _pageSize = 6;
 
-       public int pageSize
+       public int PageSize
        {
            get { return _pageSize; }
            set { _pageSize = value > MaxPageSize ? MaxPageSize : value; }
