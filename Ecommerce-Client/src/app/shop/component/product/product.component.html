@@ -1,0 +1,46 @@
+<div class="card p-2" *ngIf="Product">
+    <ng-container >
+        <img *ngIf="Product.images[0].imageName"
+        src="{{environment.ImageUrl + Product.images[0].imageName}}"
+        class="mt-2 thumbnail"
+        alt=""
+      />
+    </ng-container>
+
+  <div class="card-body">
+    <div class="thumbnails mb-3">
+        <ng-container *ngFor="let image of Product.images; let i = index">
+            <img *ngIf="i > 0 && image?.imageName"
+            src="{{environment.ImageUrl + image.imageName}}"
+            alt=""  
+            class="small-img"
+            onerror="this.onerror=null;this.src='assets/Images/white image.jpeg';"
+          />
+        </ng-container>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <h5 class="card-title text-truncate">{{Product.name}}</h5>
+      <button class="btn btn-outline-primary border-0">
+        <i class="fa fa-bookmark"></i>
+      </button>
+    </div>
+    <p class="card-text description truncate-2-lines">
+        {{Product.description}}
+    </p>
+    <div class="d-flex align-items-center">
+      <span class="text-muted text-decoration-line-through me-3">{{
+        Product.oldPrice| currency
+      }}</span>
+      <span class="text-success">{{ Product.newPrice| currency }}</span>
+    </div>
+    <div class="d-flex justify-content-between mt-3">
+      <button class="btn btn-dark" (click)="setCartVlue()">
+        <i class="fa fa-shopping-cart me-1"></i>Add to Cart
+      </button>
+      <button class="btn btn-success" routerLink="/shop/product-details/{{Product.id}}">
+        <i class="fa fa-info-circle me-1"></i>Details
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="container mt-5">
+  <div class="row">
+    <h1 class="main-title">Shopping</h1>
+    <section class="col-md-3">
+      <div class="sidebar">
+        <h4 class="section-title">Sorting</h4>
+        <div class="custom-select-wrapper mb-4">
+          <select #SortSelected name="" class="form-select" id="" (change)="SelectedOption($event)">
+            <option [value]="option.value" *ngFor="let option of SortingSelectOptions" >{{option.name}}</option>
+          </select>
+        </div>
+        <h4 class="section-title">Categories</h4>
+
+        <div class="list-group categories" >
+          <a
+            class="list-group-item list-group-item-action active"
+            [ngClass]="{ 'active': !ProductParams.CategoryId }"
+            (click)="SearchByCategory(null)"
+          >
+            All
+          </a>
+          <a *ngFor="let category of Categories"
+            class="list-group-item list-group-item-action"
+            [ngClass]="{ 'active': ProductParams.CategoryId === category.id }"
+            (click)="SearchByCategory(category.id)"
+          >
+            {{category.name}}
+          </a>
+        </div>
+      </div>
+      <button (click)="ResetAllFilter()" class="btn btn-primary mt-3">Reset All Filters</button>
+    </section>
+
+    <section class="col-md-9">
+      <div class="d-flex w-100">
+        <div class="d-flex justify-content-between align-items-center col-md-7">
+          <div class="paging-container" *ngIf="Products">
+            <span class="text-dark">showing {{Products.data.length}} of {{ProductParams.PageNumber * ProductParams.PageSize}}</span>
+          </div>
+        </div>
+
+        <div class="search-container col-md-5">
+          <div class="input-group search-bar">
+            <input #Search (keyup.enter)="OnSearch(Search.value)" type="text" class="form-control" placeholder="Search..." />
+            <input type="button" class="btn btn-danger" value="Search" (click)="OnSearch(Search.value)" />
+            <input type="button" class="btn btn-dark" value="Reset" (click)="ResetSearch()"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="container mt-5">
+        <div class="row g-4">
+          <!-- Card 1 -->
+            <ng-container *ngFor="let item of Products?.data">
+                <app-product class="col-lg-4 col-12" [Product]="item"></app-product>
+            </ng-container>
+            <div class="d-flex justify-content-center align-items-center">
+
+              <app-pagination [PageSize]="ProductParams.PageSize" [TotalCount]="TotalCount" (OnPageChange)="PageChange($event)"></app-pagination>
+         
+            </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

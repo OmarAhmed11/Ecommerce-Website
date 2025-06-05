@@ -1,0 +1,84 @@
+<section class="pt-5">
+  <div class="form-container">
+    <h2 class="text-center">Login</h2>
+    <form [formGroup]="formGroup" (ngSubmit)="Submit()">
+   
+
+ 
+
+      <div class="form-group">
+        <label for="email">email</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          [class.is-valid]="_email?.valid"
+          [class.is-invalid]="_email?.invalid && _email?.touched"
+        />
+        <span
+          *ngIf="_email?.hasError('required') && _email?.touched"
+          class="text-danger"
+          >Email is required</span
+        >
+        <span *ngIf="_email?.hasError('email')" class="text-danger"
+          >Email pattern is Invalid</span
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">password</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          [class.is-valid]="_password?.valid"
+          [class.is-invalid]="_password?.invalid && _password?.touched"
+        />
+        <span
+          *ngIf="_password?.hasError('required') && _password?.touched"
+          class="text-danger"
+          >Password is required</span
+        >
+        <span *ngIf="_password?.hasError('pattern')" class="text-danger"
+          >Password pattern is Invalid</span
+        >
+      </div>
+      <div class="form-group mt-3">
+        <button class="btn btn-info w-100" [disabled]="formGroup.invalid">
+          Login <i class="fa fa-sign-in"></i>
+        </button>
+      </div>
+      <div class="form-group d-flex justify-content-between mt-3">
+        <button class="btn btn-primary" routerLink="/Account/register">Create Account</button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Forget Password
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Forget Password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="emailModel"    
+        />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="SendEmailForForgetPassword()">Click</button>
+      </div>
+    </div>
+  </div>
+</div>

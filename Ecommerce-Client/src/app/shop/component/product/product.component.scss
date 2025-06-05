@@ -1,0 +1,39 @@
+
+.thumbnail {
+    max-width: 190px;
+    max-height: 120px;
+}
+.thumbnail:hover {
+    cursor: pointer;
+}
+.thumbnails {
+    height: 52px;
+}
+.small-img {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+.card {
+    border: 1px solid #f2eeee;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+}
+
+.truncate-2-lines {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.description {
+    height: 50px;
+}
