@@ -37,6 +37,8 @@ namespace Ecommerce.Infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             // Add Email Service
             services.AddScoped<IEmailService, EmailService>();
+            // Add Order Service
+            services.AddScoped<IOrderService, OrderService>();
             // Register Token
             services.AddScoped<IGenerateToken,GenerateTokenService>();
             services.AddSingleton<IImageManagementService, ImageManagementService>();
@@ -72,7 +74,7 @@ namespace Ecommerce.Infrastructure
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Token:Secret"])),
                     ValidateIssuer = true,
-                    ValidIssuer = configuration["Token:Issure"],
+                    ValidIssuer = configuration["Token:Issuer"],
                     ValidateAudience = false,
                     ClockSkew = TimeSpan.Zero,
                 };
@@ -80,7 +82,7 @@ namespace Ecommerce.Infrastructure
                 {
                     OnMessageReceived = context =>
                     {
-                        context.Token = context.Request.Cookies["Token"];
+                        context.Token = context.Request.Cookies["token"];
                         return Task.CompletedTask;
                     }
                 };

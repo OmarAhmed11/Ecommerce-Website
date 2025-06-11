@@ -34,7 +34,7 @@ namespace Ecommerce.Infrastructure.Repositories.Service
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(1),
-                Issuer = _configuration["Token:Issure"],
+                Issuer = _configuration["Token:Issuer"],
                 SigningCredentials = credintials,
                 NotBefore = DateTime.Now,
             };

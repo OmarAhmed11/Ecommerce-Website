@@ -4,6 +4,7 @@ using Ecommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250609030727_order-tables")]
+    partial class ordertables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,24 +154,6 @@ namespace Ecommerce.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("deliveryMethods");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DeliveryTime = "1 week",
-                            Description = "Fast delivery all over the world",
-                            Name = "FedEx",
-                            Price = 100m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DeliveryTime = "2 week",
-                            Description = "Fast delivery For Locals",
-                            Name = "Bosta",
-                            Price = 50m
-                        });
                 });
 
             modelBuilder.Entity("Ecommerce.Core.Entities.Order.Order", b =>
